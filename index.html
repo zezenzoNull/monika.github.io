@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Monika ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div id="hearts-bg"></div>
+
+    <!-- Screen 1: Introduction -->
+    <div id="screen-intro" class="screen active">
+        <h1 class="big-text">Hey...</h1>
+        <h2 class="subheading">Mei aapse kuch baat bolna chahta hu,<br>kya aap sunoge?</h2>
+        <img src="cute.gif" alt="Cute Panda" class="gif-img" onerror="this.style.display='none';">
+        <div class="buttons">
+            <button id="btn-yes" class="btn primary">theek hai, bol</button>
+            <button id="btn-no" class="btn secondary">nhi too busy</button>
+        </div>
+    </div>
+
+    <!-- Screen 2: The Envelope -->
+    <div id="screen-envelope" class="screen">
+        <h2 class="subheading swipe-hint">Tap or Swipe up to open</h2>
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <div class="envelope-back"></div>
+            <div class="envelope-letter"></div>
+            <div class="envelope-front-left"></div>
+            <div class="envelope-front-right"></div>
+            <div class="envelope-front-bottom"></div>
+            <div class="envelope-flap"></div>
+        </div>
+    </div>
+
+    <!-- Screen 3: Card Deck -->
+    <div id="screen-cards" class="screen">
+        <div class="card-deck" id="card-deck">
+            <!-- Cards are injected dynamically via JavaScript -->
+        </div>
+        <div class="card-controls">
+            <button id="btn-prev" class="btn-icon">← Prev</button>
+            <button id="btn-next" class="btn-icon">Next →</button>
+        </div>
+    </div>
+
+    <!-- Screen 4: Outro -->
+    <div id="screen-outro" class="screen">
+        <img src="last.gif" alt="Flowers" class="gif-img large" onerror="this.style.display='none';">
+        <h2 class="outro-text">Haa yeh phool tere liye</h2>
+        <button id="btn-repeat" class="btn secondary mt-20">Repeat</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
