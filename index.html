@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fde9ef">
+<meta name="description" content="A little surprise for Monika 💛">
+<title>Happy Girlfriend Day, Monika 💛</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💛</text></svg>">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<!-- ambient layers ------------------------------------------------------ -->
+<div class="paper-grain" aria-hidden="true"></div>
+<div class="romance-glow" aria-hidden="true"></div>
+<div id="balloonSky" class="balloon-sky" aria-hidden="true"></div>
+<div id="glitterField" class="glitter-field" aria-hidden="true"></div>
+<canvas id="fx" class="fx" aria-hidden="true"></canvas>
+
+<!-- persistent chrome --------------------------------------------------- -->
+<button id="musicBtn" class="music-btn" type="button" aria-pressed="false" aria-label="Play music">
+  <span class="music-btn__icon" aria-hidden="true">♪</span>
+</button>
+
+<nav id="dots" class="dots" aria-label="Progress"></nav>
+
+<main id="stage" class="stage">
+
+  <!-- 1 · envelope ---------------------------------------------------- -->
+  <section class="scene scene--open is-active" data-scene="open" data-label="Start">
+    <div class="scene__inner">
+      <p class="eyebrow">For Monika <span aria-hidden="true">💗</span></p>
+
+      <h1 class="title">
+        <span class="title__line">Happy</span>
+        <span class="title__line title__line--big">Girlfriend</span>
+        <span class="title__line">Day</span>
+      </h1>
+
+      <div class="envelope" id="envelope">
+        <div class="envelope__back"></div>
+        <div class="envelope__letter">
+          <p>Hi Monika.</p>
+        </div>
+        <div class="envelope__front"></div>
+        <div class="envelope__flap"></div>
+      </div>
+
+      <p class="hint hint--pulse" data-next>Tap anywhere to begin <span aria-hidden="true">✨</span></p>
+    </div>
+    <button class="tap-layer" type="button" data-next aria-label="Begin"></button>
+  </section>
+
+  <!-- 2 · heart battery, scratch to reveal ----------------------------- -->
+  <section class="scene" data-scene="battery" data-label="Battery">
+    <div class="scene__inner">
+      <h2 class="heading">You Charge<br>My Heart</h2>
+      <p class="sub">Scratch each one with your finger 💗</p>
+
+      <div class="battery-list">
+        <div class="battery-row" data-level="4">
+          <div class="battery-row__face">
+            <span class="battery-row__label">Without You</span>
+            <span class="battery" aria-hidden="true"><i class="battery__fill"></i><b class="battery__cap"></b></span>
+            <span class="battery-row__pct">4%</span>
+          </div>
+          <canvas class="battery-row__scratch"></canvas>
+        </div>
+
+        <div class="battery-row" data-level="62">
+          <div class="battery-row__face">
+            <span class="battery-row__label">When You Text Back</span>
+            <span class="battery" aria-hidden="true"><i class="battery__fill"></i><b class="battery__cap"></b></span>
+            <span class="battery-row__pct">62%</span>
+          </div>
+          <canvas class="battery-row__scratch"></canvas>
+        </div>
+
+        <div class="battery-row battery-row--full" data-level="100">
+          <div class="battery-row__face">
+            <span class="battery-row__label">When You're Next To Me</span>
+            <span class="battery" aria-hidden="true"><i class="battery__fill"></i><b class="battery__cap"></b></span>
+            <span class="battery-row__pct">100%</span>
+          </div>
+          <canvas class="battery-row__scratch"></canvas>
+        </div>
+      </div>
+
+      <p class="counter"><span id="battCount">0</span> of 3 revealed</p>
+      <button class="btn" type="button" data-next disabled id="battNext">Scratch them first…</button>
+    </div>
+  </section>
+
+  <!-- 3 · balloon pop -------------------------------------------------- -->
+  <section class="scene scene--pop" data-scene="balloons" data-label="Balloons">
+    <div class="scene__inner">
+      <h2 class="heading heading--sm">Pop The Balloons</h2>
+      <p class="sub">Each one is holding something I wanted to say</p>
+    </div>
+
+    <div id="popField" class="pop-field" aria-label="Balloons"></div>
+
+    <div class="pop-note" id="popNote" aria-live="polite"></div>
+
+    <div class="scene__foot">
+      <p class="counter"><span id="popCount">0</span> of 8 popped</p>
+      <button class="btn" type="button" data-next disabled id="popNext">Pop a few first…</button>
+    </div>
+  </section>
+
+  <!-- 4 · polaroids ---------------------------------------------------- -->
+  <section class="scene" data-scene="photos" data-label="Photos">
+    <div class="scene__inner scene__inner--wide">
+      <h2 class="heading heading--sm">Us, Collected</h2>
+      <p class="sub">Swipe, or tap the photo</p>
+
+      <div class="deck" id="deck"></div>
+
+      <div class="deck-controls">
+        <button class="icon-btn" type="button" id="deckPrev" aria-label="Previous photo">‹</button>
+        <span class="deck-count"><span id="deckIndex">1</span> / 9</span>
+        <button class="icon-btn" type="button" id="deckNext" aria-label="Next photo">›</button>
+      </div>
+
+      <button class="btn" type="button" data-next>Next</button>
+    </div>
+  </section>
+
+  <!-- 5 · stats -------------------------------------------------------- -->
+  <section class="scene" data-scene="stats" data-label="Numbers">
+    <div class="scene__inner scene__inner--wide">
+      <h2 class="heading heading--sm">Completely Accurate<br>Statistics About Us</h2>
+
+      <div class="stats" id="stats"></div>
+
+      <button class="btn" type="button" data-next>Next</button>
+    </div>
+  </section>
+
+  <!-- 6 · the letter --------------------------------------------------- -->
+  <section class="scene" data-scene="letter" data-label="Letter">
+    <div class="scene__inner scene__inner--wide">
+      <div class="letter">
+        <div class="letter__tape" aria-hidden="true"></div>
+        <div class="letter__body" id="letterBody"></div>
+      </div>
+      <p class="hint" id="letterHint">Tap to skip</p>
+      <button class="btn" type="button" data-next id="letterNext" hidden>One more thing</button>
+    </div>
+  </section>
+
+  <!-- 7 · finale ------------------------------------------------------- -->
+  <section class="scene scene--finale" data-scene="finale" data-label="The end">
+    <div class="scene__inner">
+      <p class="eyebrow">So, officially —</p>
+      <h2 class="title title--finale">
+        <span class="title__line">Happy</span>
+        <span class="title__line title__line--big">Girlfriend</span>
+        <span class="title__line">Day,</span>
+        <span class="title__line title__line--name">Monika</span>
+      </h2>
+
+      <p class="finale-note">
+        I love you. Not in a big loud way — in the way
+        where you're just in everything I think about.
+      </p>
+
+      <button class="heart-btn" type="button" id="heartBtn">
+        <span class="heart-btn__ring"></span>
+        <span class="heart-btn__face" aria-hidden="true">💛</span>
+        <span class="heart-btn__label">Hold me</span>
+      </button>
+
+      <p class="signed" id="signature"></p>
+
+      <button class="btn btn--ghost" type="button" id="replayBtn">Watch it again</button>
+    </div>
+  </section>
+
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>
